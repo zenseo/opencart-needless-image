@@ -160,6 +160,7 @@ class ControllerModuleNeedlessimage extends Controller {
 	}
 	
 	private function getNeedlessImages($directory, $recursive) {
+		$http_image = defined('HTTP_IMAGE') ? HTTP_IMAGE : HTTPS_CATALOG . 'image/';
 		$this->load->model('module/needlessimage');
 		
 		$used_files = $this->model_module_needlessimage->getImagesDb();
@@ -169,7 +170,7 @@ class ControllerModuleNeedlessimage extends Controller {
 		foreach ($files as $file) {
 			if ( !in_array($file, $used_files) ) {
 				$files_to_delete[] = array(
-					'name' => '<a href="' . HTTP_IMAGE . $file . '" target="_blank">' . $file . '</a>', 
+					'name' => '<a href="' . $http_image . $file . '" target="_blank">' . $file . '</a>', 
 					'path' => $file,
 				);
 				
@@ -181,7 +182,7 @@ class ControllerModuleNeedlessimage extends Controller {
 					$cached_file_size = str_replace($file_info['filename'].'-', '', $cached_file_info['filename']);
 					
 					$files_to_delete[] = array(
-						'name' => '<a href="' . HTTP_IMAGE . $cached_file . '" target="_blank">' . $file . '</a> <b>(cache) [' . $cached_file_size . ']</b>',
+						'name' => '<a href="' . $http_image . $cached_file . '" target="_blank">' . $file . '</a> <b>(cache) [' . $cached_file_size . ']</b>',
 						'path' => $cached_file,
 					);
 				}
