@@ -1,7 +1,7 @@
 <?php
 class ControllerModuleNeedlessimage extends Controller {
 	private $error = array();
-	var $version = 1.0;
+	var $version = 1.1;
 	
 	public function index() {   
 		$this->load->language('module/needlessimage');

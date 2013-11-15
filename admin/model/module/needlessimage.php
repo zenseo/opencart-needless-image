@@ -30,8 +30,14 @@ class ModelModuleNeedlessimage extends Model {
 		$directories = $recursive ? $this->getDirectoriesFs($path, true) : array($path);
 		
 		foreach ($directories as $directory) {
-			$files = array_filter(glob(rtrim(DIR_IMAGE . str_replace('../', '', $directory), '/') . '/' . $mask), 'is_file');
-			$files = array_filter($files, 'filesize');
+			$files = glob(rtrim(DIR_IMAGE . str_replace('../', '', $directory), '/') . '/' . $mask);
+			
+			if ( is_array($files) ) {
+				$files = array_filter($files, 'is_file');
+				$files = array_filter($files, 'filesize');
+			} else {
+				$files = array();
+			}
 			
 			foreach ($files as $file) {
 				$sizes = getimagesize($file);

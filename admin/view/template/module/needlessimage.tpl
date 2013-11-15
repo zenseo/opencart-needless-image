@@ -71,6 +71,8 @@
 var directory_row = <?php echo isset($directory_row) ? ++$directory_row : 0; ?>;
 
 function addDirectory() {
+	var html = '';
+	
 	html  = '<tbody id="directory-row' + directory_row + '">';
 	html += '	<tr>';
 	html += '		<td class="left">';
@@ -196,8 +198,14 @@ function prepareCheckboxesList(checkboxes) {
 	return output;
 }
 
-function prepareCheckboxesForm(data, index, message = '') {
-	var output  = '<form id="form-delete-' + index + '" action="<?php echo $action_delete ?>" method="post" enctype="multipart/form-data" class="left" style="display:inline-block;">';
+function prepareCheckboxesForm(data, index, message) {
+	var output = '';
+	
+	if (typeof message === 'undefined') {
+		message = '';
+	}
+	
+	output += '<form id="form-delete-' + index + '" action="<?php echo $action_delete ?>" method="post" enctype="multipart/form-data" class="left" style="display:inline-block;">';
 	output += message;
 	output += '	<input type="hidden" value="' + $("#form select[name*='[" + index + "][path]']").val() + '" name="path">';
 	output += '	<input type="hidden" value="' + $("#form select[name*='[" + index + "][recursive]']").val() + '" name="recursive">';
